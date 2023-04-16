@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     # OUR APPA
     'login',
     'registration',
+    'api',
+    'landing_page'
 ]
 
 MIDDLEWARE = [
@@ -84,7 +86,7 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'mssql',
-        'NAME':'pdm_frontend',
+        'NAME':'pdm',
         'USER':'sa',                     # Keep it blank
         'PASSWORD':'Root@123',                 # Keep it blank
         'HOST':'localhost', # "localhost" is also possible

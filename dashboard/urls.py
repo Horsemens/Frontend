@@ -22,5 +22,6 @@ urlpatterns = [
     path('', index_view ),
     path('login/',include('login.urls')),
     path('registration/',include('registration.urls')),
-    path('landing/',include('landing_page.urls'))
+    path('landing/',include('landing_page.urls')),
+    path('api/',include('api.urls'))
 ]
