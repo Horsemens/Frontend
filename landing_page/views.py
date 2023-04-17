@@ -6,7 +6,7 @@ def landing(request):
         redirect("/login")
 
     if request.method == "POST":
-        if request.POST.get("logout") and request.POST.get("logout") == "logout":
+        if request.POST.get("logout") and request.POST.get("logout") == "Logout":
             request.session["is_logged_in"] = "False"
             return redirect("/login")
 
