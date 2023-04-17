@@ -4,6 +4,8 @@ from . import forms
 # Create your views here.
 
 def register(request):
+    if(is_logged_in(request)):
+        return redirect("/")
     context = {}
     if request.method == "POST":
         print(request.POST)
@@ -19,3 +21,8 @@ def register(request):
         context["success"] =  True
     context["form"] = reg_form
     return render(request,'register.html', context=context)
+
+def is_logged_in(request):
+    if request.session.get("is_logged_in") and request.session.get("is_logged_in") == "True":
+        return True
+    return False
