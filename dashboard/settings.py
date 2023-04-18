@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'registration',
     'api',
     'landing_page',
-    'stats'
+    'stats',
 ]
 
 MIDDLEWARE = [
@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE':'mssql',
         'NAME':'pdm',
         'USER':'sa',                     # Keep it blank
-        'PASSWORD':'Root@123',                 # Keep it blank
+        'PASSWORD':'root@123',                 # Keep it blank
         'HOST':'localhost', # "localhost" is also possible
         'PORT':'1433',                   # Can be removed
     }

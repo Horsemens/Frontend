@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from api.models import Sensor
+from api.models import Sensor , SensorData
 from registration.models import User
 from .models import Mapping
 from django.contrib.auth import logout
@@ -15,11 +15,15 @@ def landing(request):
     user = User.objects.filter(id=current_user_id).first()
 
     if request.method == "POST":
+        msg = ''
         if request.POST.get("logout") and request.POST.get("logout") == "Logout":
             logout(request)
             return redirect("/login")
-
         
+        if request.POST.get("remove") and request.POST.get("remove") == "remove":
+            msg = remove_sensor(request.POST.get("sensorID"))
+            return redirect("." + "?response="+msg)
+            
         if not request.user.is_authenticated:
             logout(request)
             return redirect("/login")
@@ -33,7 +37,6 @@ def landing(request):
 
         status = validate(sensor=sensor, user=user, vname=vname ,vnumber=vnumber)
 
-        msg = ''
         if(status == "sensor err"):
             msg = '<p class="text-danger m-0">Invalid Sensor ID</P> '
         if(status == "user err"):
@@ -61,17 +64,45 @@ def landing(request):
     for i in range(0, len(sensors_owned)):
         vehicle_names.append(sensors_owned[i].vname)
         vehicle_numbers.append(sensors_owned[i].vnumber)
+        sensor_data = SensorData.objects.filter(SensorID = sensors_owned[i].SensorID)
+        sensors_owned[i].status = process_sensor_data(sensor_data)
+
     
     context["vehicle_names"] = vehicle_names
     context["vehicle_numbers"] = vehicle_numbers
     context["vehicles"] = sensors_owned
-    context["images"] = ["gUQNKPd.png", "SKZolYE.png", "edOjtEC.png"]
 
     if(request.GET.get("response")):
         context["response"] = request.GET.get("response")
 
     return render(request,'landing_page.html', context=context)
 
+
+def remove_sensor(sensor_id):
+    try:
+        sensor = Sensor.objects.filter(SensorID=sensor_id).first()
+        mapping = Mapping.objects.filter(SensorID=sensor).first()
+        mapping.delete()
+        return "<p class='text-success m-0'>Vehicle Removed Successfully</P>"
+    except:
+        return "<p class='text-danger m-0'>Unable To Vehicle</P>"
+
+
+def process_sensor_data(data):
+    if(len(data) >= 50):
+        data = data[:50]
+    required = 0
+    not_required = 0
+    for entry in data:
+        if(entry.result == 0):
+            not_required+=1
+        else:
+            required+=1
+    if(required >= not_required):
+        return "Required"
+    else:
+        return "Not Required"
+    
 
 def validate(sensor, vname, vnumber, user):
     if(sensor is None):
