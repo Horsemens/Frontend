@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'login',
     'registration',
     'api',
-    'landing_page'
+    'landing_page',
+    'stats'
 ]
 
 MIDDLEWARE = [

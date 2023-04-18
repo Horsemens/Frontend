@@ -23,6 +23,5 @@ def register(request):
     return render(request,'register.html', context=context)
 
 def is_logged_in(request):
-    if request.session.get("is_logged_in") and request.session.get("is_logged_in") == "True":
-        return True
-    return False
+    user = request.user
+    return user.is_authenticated

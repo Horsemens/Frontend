@@ -1,5 +1,6 @@
 from django.shortcuts import render , redirect
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate 
+import django.contrib.auth as auth1
 
 
 # Create your views here.
@@ -22,7 +23,7 @@ def login(request):
         user = authenticate(username=username, password=password)
 
         if user is not None:
-            request.session["is_logged_in"] = "True"
+            auth1.login(request = request, user=user)
             if keep:
                 request.session.set_expiry(2592000)
             return redirect("/")
@@ -34,7 +35,6 @@ def login(request):
     return render(request, 'login.html', context=context)
 
 def is_logged_in(request):
-    if request.session.get("is_logged_in") and request.session.get("is_logged_in") == "True":
-        print(request.session["is_logged_in"])
-        return True
-    return False
+    user = request.user
+    return user.is_authenticated
+    
