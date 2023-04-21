@@ -16,17 +16,13 @@ def landing(request):
 
     if request.method == "POST":
         msg = ''
-        if request.POST.get("logout") and request.POST.get("logout") == "Logout":
-            logout(request)
-            return redirect("/login")
         
         if request.POST.get("remove") and request.POST.get("remove") == "remove":
             msg = remove_sensor(request.POST.get("sensorID"))
             return redirect("." + "?response="+msg)
             
         if not request.user.is_authenticated:
-            logout(request)
-            return redirect("/login")
+            return redirect("/logout")
         
         
         sensorID = request.POST.get("sensorID")
@@ -40,8 +36,7 @@ def landing(request):
         if(status == "sensor err"):
             msg = '<p class="text-danger m-0">Invalid Sensor ID</P> '
         if(status == "user err"):
-            logout(request)
-            return redirect("/login")
+            return redirect("/logout")
         if(status == "vname err"):
             msg = '<p class="text-danger m-0">Invalid Vehicle Name</P>'
         if(status == "vnumber err"):
@@ -94,7 +89,7 @@ def process_sensor_data(data):
     required = 0
     not_required = 0
     for entry in data:
-        if(entry.result == 0):
+        if(entry.Result == 0):
             not_required+=1
         else:
             required+=1

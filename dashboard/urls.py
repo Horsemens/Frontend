@@ -24,5 +24,6 @@ urlpatterns = [
     path('registration/',include('registration.urls')),
     path('landing/',include('landing_page.urls')),
     path('api/',include('api.urls')),
-    path('stats/',include('stats.urls'))
+    path('stats/',include('stats.urls')),
+    path('logout/',include('logout.urls')),
 ]

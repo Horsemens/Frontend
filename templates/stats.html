@@ -13,9 +13,8 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
 
-                <form method="POST" >
-                  {% csrf_token %}
-                  <input class="btn btn-danger" type="submit" name="logout" value="Logout" >
+                <form method="GET" action="/logout">
+                  <input class="btn btn-danger" type="submit" value="Logout" >
                 </form>
                 
               </div>
@@ -26,7 +25,7 @@
     <section class="container-fluid p-0 m-0" >
         <div class="row p-0 m-0" style="min-height: 100vh;">
             <!-- left -->
-            <div class="col-2 pe-4 ps-0 m-0 " style="min-height: 100vh;">
+            <div class="col-2 pe-3 ps-0 m-0 " style="min-height: 100vh;">
                 <div class="bg-dark" style="min-height: 100vh;">
                     <div class="d-flex align-items-start" style="min-width: 100%;">
                         <!-- left -->
@@ -43,36 +42,37 @@
             </div>
 
              <!-- main right -->
-             <div class="tab-content col-10" id="v-pills-tabContent" >
+             <div class="tab-content col-10 p-0" id="v-pills-tabContent" >
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <!-- right -->
                     <div class="p-0 m-0">
                         <!-- right top -->
                         <div class="container p-0 m-0">
-                            <div class="py-2" style="padding-left: 12px; font-family: sans-serif;" >
-                                <p style="font-size: 22px;">i20's DASHBOARD</p>
+                            <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                                <p class="mb-3" style="font-size: 22px;">{{ mapping.vname | title }}'s Dashboard</p>
                             </div>
                         </div>
                         <diV class="container">
                             <div class="row">
+                                {% if status == "Required" %}
 
-                                <div class="col-3 p-0">
-                                    <div class="card bg-c-green order-card">
-                                        <div class="card-block" >
-                                            <h4 class="m-b-20">Servicing Status</h4>
+                                <div class="col-3  p-0">
+                                    <div class="card order-card">
+                                        <div class="card-block  bg-c-red" >
+                                            <h4 class="pb-3">Servicing Status</h4>
                                             <div class="row p-0 m-0">
-                                                <div class="col-6 p-0 m-0">
-                                                    <h4><i class="fa fa-wrench"></i></h4>
+                                                <div class="col-5 p-0 m-0">
+                                                    <h4><i class="fa fa-wrench pt-4 ps-2" style="font-size: 28px;"></i></h4>
                                                     <h7>
-                                                        Range 192~200
+                                                        
                                                     </h7>
                                                 </div>
-                                                <div class="col-6 p-0 m-0" style="text-align: right;">
-                                                    <h4>
-                                                        200
-                                                    </h4>
+                                                <div class="col-7 p-0 m-0" style="text-align: right;white-space: nowrap;">
+                                                    <h5>
+                                                        {{ status | title}}
+                                                    </h5>
                                                     <h7>
-                                                        Kelvin
+                                                        (*approx)
                                                     </h7>
                                                 </div>
 
@@ -80,11 +80,37 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                {% else %}
                                 <div class="col-3 p-0">
-                                    <div class="card bg-c-voilet order-card">
-                                        <div class="card-block" >
-                                            <h4 class="m-b-20">Battery Voltage</h4>
+                                    <div class="card  order-card">
+                                        <div class="card-block bg-c-green" >
+                                            <h4 class="pb-3">Servicing Status</h4>
+                                            <div class="row p-0 m-0">
+                                                <div class="col-6 p-0 m-0">
+                                                    <h4><i class="fa fa-wrench pt-4 ps-2" style="font-size: 28px;"></i></h4>
+                                                    <h7>
+                                                       
+                                                    </h7>
+                                                </div>
+                                                <div class="col-6 p-0 m-0" style="text-align: right;white-space: nowrap;">
+                                                    <h5>
+                                                        {{ status | title}}
+                                                    </h5>
+                                                    <h7>
+                                                        (*approx)
+                                                    </h7>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <div class="col-3  p-0">
+                                    <div class="card  order-card">
+                                        <div class="card-block bg-c-voilet" >
+                                            <h4 class="pb-3">Battery Voltage</h4>
                                             <div class="row p-0 m-0">
                                                 <div class="col-6 p-0 m-0">
                                                     <h4><i class="fa fa-battery-half"></i></h4>
@@ -94,10 +120,10 @@
                                                 </div>
                                                 <div class="col-6 p-0 m-0" style="text-align: right;">
                                                     <h4>
-                                                        200
+                                                        {{ latest_stats.BatteryVoltage| default:"NA" }}
                                                     </h4>
                                                     <h7>
-                                                        Kelvin
+                                                        Volts
                                                     </h7>
                                                 </div>
 
@@ -107,9 +133,9 @@
                                 </div>
 
                                 <div class="col-3 p-0">
-                                    <div class="card bg-c-orange order-card">
-                                        <div class="card-block" >
-                                            <h4 class="m-b-20">Engine Temperature</h4>
+                                    <div class="card order-card">
+                                        <div class="card-block bg-c-orange " >
+                                            <h4 class="pb-3">Engine Temperature</h4>
                                             <div class="row p-0 m-0">
                                                 <div class="col-6 p-0 m-0">
                                                     <h4><i class="fa fa-temperature-high"></i></h4>
@@ -119,7 +145,7 @@
                                                 </div>
                                                 <div class="col-6 p-0 m-0" style="text-align: right;">
                                                     <h4>
-                                                        200
+                                                        {{ latest_stats.AirTemp| default:"NA" }}
                                                     </h4>
                                                     <h7>
                                                         Kelvin
@@ -132,19 +158,19 @@
                                 </div>
 
                                 <div class="col-3 p-0">
-                                    <div class="card bg-c-blue order-card">
-                                        <div class="card-block" >
-                                            <h4 class="m-b-20">Coolant Temperature</h4>
+                                    <div class="card  order-card">
+                                        <div class="card-block bg-c-blue" >
+                                            <h4 class="pb-3">Coolant Temperature</h4>
                                             <div class="row p-0 m-0">
                                                 <div class="col-6 p-0 m-0">
                                                     <h4><i class="fa fa-snowflake"></i></h4>
                                                     <h7>
-                                                        Range 192~200
+                                                        range 100~200
                                                     </h7>
                                                 </div>
                                                 <div class="col-6 p-0 m-0" style="text-align: right;">
                                                     <h4>
-                                                        200
+                                                        {{ latest_stats.CoolantTemp| default:"NA" }}
                                                     </h4>
                                                     <h7>
                                                         Kelvin
@@ -160,8 +186,8 @@
 
                         </diV>
                         <div class="container p-0 m-0">
-                            <div class="py-4" style="padding-left: 12px; font-family: sans-serif;" >
-                                <h5>GRAPHS</h5>
+                            <div class="py-4 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                                <h5>Key Graphs</h5>
                             </div>
                         </div>
 
@@ -171,14 +197,14 @@
                                 <!-- right bottom left -->
                                 <div class="col-7 m-0">
                                     <div class="container m-0 p-0">
-                                        <canvas id="myChartline" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;"></canvas>
+                                        <canvas id="myChartline" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px; min-height: 367px;"></canvas>
                                     </div>
                                 </div>
 
                                 <!-- right bottom right -->
                                 <div class="col-5">
                                     <div class="container m-0 p-0">
-                                        <canvas id="myChartbar" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px; min-height: 347px;"></canvas>
+                                        <canvas id="myChartbar" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px; min-height: 367px;"></canvas>
                                     </div>
                                 </div>
 
@@ -263,20 +289,26 @@
 
 
         .card {
-            border-radius: 5px;
-            -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-            box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            /* max-width: 300px;
+            max-height: 130px; */
+            min-height: 100%;
+            /* margin: 8px; */
+            padding: 5px;
             border: none;
-            -webkit-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-            max-width: 300px;
-            max-height: 130px;
         }
 
         .card .card-block {
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
             padding: 15px;
-            max-width: 300px;
-            max-height: 130px;
+            min-height: 100%;
+            height: 100%;
+            /* max-width: 300px;
+            max-height: 130px; */
         }
 
         .order-card i {

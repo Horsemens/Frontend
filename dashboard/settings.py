@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--%dp&qfng_lbt&jdt-1_9$%rj3p&emz)^t=78511@-_7q-lf*_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "django", "django:8010"]
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'api',
     'landing_page',
     'stats',
+    'logout',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ DATABASES = {
         'NAME':'pdm',
         'USER':'sa',                     # Keep it blank
         'PASSWORD':'root@123',                 # Keep it blank
-        'HOST':'localhost', # "localhost" is also possible
+        'HOST':'mssql', # "localhost" is also possible
         'PORT':'1433',                   # Can be removed
     }
 }
@@ -128,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "static_dep")
 
-STATIC_URL = "static/"
+STATIC_URL = os.path.join(BASE_DIR, "static/")
 
 STATICFILES_DIRS = [
     BASE_DIR / "static/",

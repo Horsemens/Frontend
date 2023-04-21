@@ -35,9 +35,8 @@
           </li> -->
         </ul>
 
-        <form method="POST" >
-          {% csrf_token %}
-          <input class="btn btn-danger" type="submit" name="logout" value="Logout" >
+        <form method="GET"  action="/logout">
+          <input class="btn btn-danger"  value="Logout" type="submit" >
         </form>
         
       </div>
@@ -68,19 +67,19 @@
           <div class="col-sm" style="position: relative;">
             <div class="card" style="min-height: 500px;min-width: 300px;">
               {% if forloop.counter0 == 0 %}
-                <img src='{% static "img_local/1.jpeg "%}' class="card-img-top" width="100%">
+                <img src='{% static "img_local/1.jpeg" %}' class="card-img-top" width="100%">
               {% elif forloop.counter0 == 1  %}
-                <img src='{% static "img_local/2.jpeg "%}' class="card-img-top" width="100%">
+                <img src='{% static "img_local/2.jpeg" %}' class="card-img-top" width="100%">
               {% elif forloop.counter0 == 2  %}
-                <img src='{% static "img_local/3.jpeg "%}' class="card-img-top" width="100%">
+                <img src='{% static "img_local/3.jpeg" %}' class="card-img-top" width="100%">
               {% elif forloop.counter0 == 3  %}
-                <img src='{% static "img_local/4.jpeg "%}' class="card-img-top" width="100%">
+                <img src='{% static "img_local/4.jpeg" %}' class="card-img-top" width="100%">
               {% elif forloop.counter0 == 4  %}
-                <img src='{% static "img_local/5.jpeg "%}' class="card-img-top" width="100%">
+                <img src='{% static "img_local/5.jpeg" %}' class="card-img-top" width="100%">
               {% elif forloop.counter0 == 5  %}
-                <img src='{% static "img_local/6.jpeg "%}' class="card-img-top" width="100%">
+                <img src='{% static "img_local/6.jpeg" %}' class="card-img-top" width="100%">
               {% else %}
-                <img src='{% static "img_local/7.jpeg "%}' class="card-img-top" width="100%">
+                <img src='{% static "img_local/7.jpeg" %}' class="card-img-top" width="100%">
               {% endif %}
               
               <div class="card-body pt-0 px-0" >
@@ -102,8 +101,9 @@
                   <div class="d-flex flex-column"><small class="text-muted mb-2">VEHICLE</small><div class="d-flex flex-row"><img src="https://imgur.com/J11mEBq.png"><h6 class="ml-1">135 hp&ast;</h6></div></div>
                 </div>
                 <div class="mx-3 mt-3 mb-2 d-flex justify-content-center">
-                  <form>
-                    <button type="button" class="btn btn-info btn-block"><small>SHOW STATS</small></button>
+                  <form method="GET" action="/stats">
+                    <input type="text" name="id" value="{{ vehicle.SensorID.SensorID }}" hidden>
+                    <button type="submit" class="btn btn-info btn-block px-4 py-2"><small>SHOW STATS</small></button>
                   </form>
                   <style>
                     body{
