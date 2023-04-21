@@ -1,88 +1,438 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <title>chatsjs</title>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{% extends 'base.html' %}
+{% block title %} PDM | Stats {% endblock title%}
+{% block content %}
+        
+    <section class="container-fluid m-0 p-0">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 py-3">
+            <div class="container-fluid">
+              <a class="navbar-brand " href="#" style="font-family: sans-serif;">PREDICTIVE MAINTAINANCE</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
 
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                <form method="POST" >
+                  {% csrf_token %}
+                  <input class="btn btn-danger" type="submit" name="logout" value="Logout" >
+                </form>
+                
+              </div>
+            </div>
+          </nav>
+    </section>
 
-  <!-- Latest compiled JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <section class="container-fluid p-0 m-0" >
+        <div class="row p-0 m-0" style="min-height: 100vh;">
+            <!-- left -->
+            <div class="col-2 pe-4 ps-0 m-0 " style="min-height: 100vh;">
+                <div class="bg-dark" style="min-height: 100vh;">
+                    <div class="d-flex align-items-start" style="min-width: 100%;">
+                        <!-- left -->
+                        <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical" style="min-width: 100%;">
+                            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Dashboard</button>
+                            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Coolant Temperature</button>
+                            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Engine Temperature</button>
+                            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Battery</button>
+                        </div>
 
-</head>
-    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-    
-    <body class="container-fluid">
-    <hr />
-    <div class="row">
-        <div class="col-md-6">
-        <canvas id="myChartline"></canvas>
+                       
+                    </div>
+                </div>
+            </div>
+
+             <!-- main right -->
+             <div class="tab-content col-10" id="v-pills-tabContent" >
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <!-- right -->
+                    <div class="p-0 m-0">
+                        <!-- right top -->
+                        <div class="container p-0 m-0">
+                            <div class="py-2" style="padding-left: 12px; font-family: sans-serif;" >
+                                <p style="font-size: 22px;">i20's DASHBOARD</p>
+                            </div>
+                        </div>
+                        <diV class="container">
+                            <div class="row">
+
+                                <div class="col-3 p-0">
+                                    <div class="card bg-c-green order-card">
+                                        <div class="card-block" >
+                                            <h4 class="m-b-20">Servicing Status</h4>
+                                            <div class="row p-0 m-0">
+                                                <div class="col-6 p-0 m-0">
+                                                    <h4><i class="fa fa-wrench"></i></h4>
+                                                    <h7>
+                                                        Range 192~200
+                                                    </h7>
+                                                </div>
+                                                <div class="col-6 p-0 m-0" style="text-align: right;">
+                                                    <h4>
+                                                        200
+                                                    </h4>
+                                                    <h7>
+                                                        Kelvin
+                                                    </h7>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-0">
+                                    <div class="card bg-c-voilet order-card">
+                                        <div class="card-block" >
+                                            <h4 class="m-b-20">Battery Voltage</h4>
+                                            <div class="row p-0 m-0">
+                                                <div class="col-6 p-0 m-0">
+                                                    <h4><i class="fa fa-battery-half"></i></h4>
+                                                    <h7>
+                                                        Range 192~200
+                                                    </h7>
+                                                </div>
+                                                <div class="col-6 p-0 m-0" style="text-align: right;">
+                                                    <h4>
+                                                        200
+                                                    </h4>
+                                                    <h7>
+                                                        Kelvin
+                                                    </h7>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-0">
+                                    <div class="card bg-c-orange order-card">
+                                        <div class="card-block" >
+                                            <h4 class="m-b-20">Engine Temperature</h4>
+                                            <div class="row p-0 m-0">
+                                                <div class="col-6 p-0 m-0">
+                                                    <h4><i class="fa fa-temperature-high"></i></h4>
+                                                    <h7>
+                                                        Range 192~200
+                                                    </h7>
+                                                </div>
+                                                <div class="col-6 p-0 m-0" style="text-align: right;">
+                                                    <h4>
+                                                        200
+                                                    </h4>
+                                                    <h7>
+                                                        Kelvin
+                                                    </h7>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-0">
+                                    <div class="card bg-c-blue order-card">
+                                        <div class="card-block" >
+                                            <h4 class="m-b-20">Coolant Temperature</h4>
+                                            <div class="row p-0 m-0">
+                                                <div class="col-6 p-0 m-0">
+                                                    <h4><i class="fa fa-snowflake"></i></h4>
+                                                    <h7>
+                                                        Range 192~200
+                                                    </h7>
+                                                </div>
+                                                <div class="col-6 p-0 m-0" style="text-align: right;">
+                                                    <h4>
+                                                        200
+                                                    </h4>
+                                                    <h7>
+                                                        Kelvin
+                                                    </h7>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </diV>
+                        <div class="container p-0 m-0">
+                            <div class="py-4" style="padding-left: 12px; font-family: sans-serif;" >
+                                <h5>GRAPHS</h5>
+                            </div>
+                        </div>
+
+                        <!-- right bottom -->
+                        <div class="container">
+                            <div class="row">
+                                <!-- right bottom left -->
+                                <div class="col-7 m-0">
+                                    <div class="container m-0 p-0">
+                                        <canvas id="myChartline" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;"></canvas>
+                                    </div>
+                                </div>
+
+                                <!-- right bottom right -->
+                                <div class="col-5">
+                                    <div class="container m-0 p-0">
+                                        <canvas id="myChartbar" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px; min-height: 347px;"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <!-- end right -->
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <canvas id="myChartline1" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;"></canvas>
+                    <p>coolant temp</p>
+                </div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                   
+                    <p>engine temp</p>
+                </div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    <p>battery</p>
+                </div>
+
+            </div>
+            
+            
+
         </div>
-        <div class="col-md-6">
-        <canvas id="myChartBar"></canvas>
-        </div>
-    </div>
+      
+
+    </section>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        body{
+            max-height: 100vh;
+            min-height: 100vh;
+            overflow-y: hidden;
+        }
+
+        .nav-pills .nav-link.active{
+            background-color: white;
+            padding: 15px;
+            color: black;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+
+        .nav-pills .nav-link{
+            border-radius: 0;
+            text-align: start;
+            color: rgb(168, 168, 168);
+        }
+
+        .order-card {
+            color: #fff;
+        }
+
+        .bg-c-blue {
+            background: linear-gradient(45deg,#4099ff,#73b4ff);
+        }
+
+        .bg-c-orange {
+            background: orange;
+        }
+
+        .bg-c-red {
+            background: red;
+        }
+
+        .bg-c-green {
+            background: green;
+        }
+
+        .bg-c-voilet {
+            background: darkorchid;
+        }
+
+
+        .card {
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            border: none;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            max-width: 300px;
+            max-height: 130px;
+        }
+
+        .card .card-block {
+            padding: 15px;
+            max-width: 300px;
+            max-height: 130px;
+        }
+
+        .order-card i {
+            font-size: 18px;
+        }
+
+        .f-left {
+            float: left;
+        }
+
+        .f-right {
+            float: right;
+        }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
     <script>
-        var endpoint = '';
 
-        $.ajax({
-        method: "GET",
-        url: endpoint,
-        success: function(data) {
-            drawLineGraph(data, 'myChartline');
-            //drawBarGraph(data, 'myChartBar');
-            console.log("drawing");
-        },
-        error: function(error_data) {
-            console.log(error_data);
-        }
-        })
+    // var endpoint = '';
+
+    // $.ajax({
+    // method: "GET",
+    // url: endpoint,
+    // success: function(data) {
+    //     drawLineGraph(data, 'myChartline');
+    //     //drawBarGraph(data, 'myChartBar');
+    //     console.log("drawing");
+    // },
+    // error: function(error_data) {
+    //     console.log(error_data);
+    // }
+    // })
 
 
-        function drawLineGraph(data, id) {
-        var labels = ['a','b','c','d','e','f'];
-        var chartLabel = "my data";
-        var chartdata = [25, 10, 10, 0, 20, 30];
-        var ctx = document.getElementById(id).getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-            labels: labels,
-            datasets: [{
-                label: chartLabel,
-                //backgroundColor: 'rgb(255, 100, 200)',
-                borderColor: 'rgb(55, 99, 132)',
-                data: chartdata,
-            }]
+    function drawLineGraph(id) {
+    var labels = ['a','b','c','d','e','f','a','b','c','d','e','f','a','b','c','d','e','f','g','r','w'];
+    var ctx = document.getElementById(id).getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+        labels: labels,
+        datasets: [
+            {
+                label: "ignition angle",
+                data: [10,20,15,12,23,4],
+                borderColor: "red",
+                fill:false,
+                tension:0,
             },
-
-            // Configuration options go here
-            options: {
-            scales: {
-                xAxes: [{
-                display: true
-                }],
-                yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-                }]
+            {
+                label: "base fule",
+                data: [10,15,23,4,18,20],
+                borderColor: "green",    
+                fill:false,
+                tension:0,
+            },
+            {
+                label: "rpm",
+                data: [25,10,10,0,20,25,10,10,0,20,25,15],
+                borderColor: 'rgb(55, 99, 132)',
+                fill:false,
+                tenison:0,
             }
+        ]
+        },
+        // Configuration options go here
+        options: {
+        scales: {
+            xAxes: [{
+            display: true
+            }],
+            yAxes: [{
+            ticks: {
+                beginAtZero: true
             }
-
-        });
+            }]
         }
-    </script>
-</body>
+        }
 
-</html>
+    });
+    }
+    drawLineGraph('myChartline')
+    drawLineGraph('myChartline1')
+
+    function drawBarGraph(id){
+        var labels = ['battery status','rpm','ignition angle','temp','voltage'];
+        var ctx = document.getElementById(id).getContext('2d');
+        var chart = new Chart(ctx,{
+            type: 'bar',
+            data:{
+            labels : labels,
+            datasets:[
+                {
+                label: "battery",
+                data: [10,15,20,18,5],
+                backgroundColor:['rgba(255, 99, 132, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 205, 86, 0.2)'
+                ],
+                borderColor: ["red",
+                              "blue",
+                              "green",
+                              'rgb(54, 162, 235)',
+                              "yellow"
+                ],
+                borderWidth:1,
+                },
+                // {
+                // label: "rpm",
+                // data: [15],
+                // backgroundColor:'rgba(153, 102, 255, 0.2)',
+                // borderColor: "blue",
+                // borderWidth:1,
+                // },
+                // {
+                // label: "ignition angle",
+                // data: [10],
+                // backgroundColor:'rgba(75, 192, 192, 0.2)',
+                // borderColor: "green",
+                // borderWidth:1,
+                // },
+                // {
+                // label: "temp",
+                // data: [4],
+                // backgroundColor:'rgba(255, 99, 132, 0.2)',
+                // borderColor: "voilet",
+                // borderWidth:1,
+                // },
+                // {
+                // label: "voltage",
+                // data: [25],
+                // backgroundColor:'rgba(255, 205, 86, 0.2)',
+                // borderColor: "yellow",
+                // borderWidth:1,
+                // },
+            ]
+            },
+            options:{
+                scales: {
+                    xAxes: [{
+                    display: true
+                    }],
+                    yAxes: [{
+                    ticks: {
+                         beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+    drawBarGraph('myChartbar');
+    </script>
+
+{% endblock content %}
