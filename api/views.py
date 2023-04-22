@@ -38,6 +38,37 @@ def insert(request):
     return HttpResponseNotAllowed(permitted_methods=["POST"])
 
 
+def getdata(request):
+    id = request.GET.get("id")
+    sensor = Sensor.objects.filter(SensorID=id).first()
+    sensorData = list(SensorData.objects.filter(SensorID=sensor).order_by("DateTime").values())
+    sensorData = sensorData[:100]
+    result = {}
+    content = []
+    return JsonResponse({'data': sensorData})
+ 
+def getsensorstatus(request):
+    id = request.GET.get("id")
+    sensor = Sensor.objects.filter(SensorID=id).first()
+    sensorData = SensorData.objects.filter(SensorID=sensor).order_by("DateTime")
+    status = process_sensor_data(sensorData)
+    return JsonResponse({'status': status})
+
+def process_sensor_data(data):
+    if(len(data) >= 50):
+        data = data[:50]
+    required = 0
+    not_required = 0
+    for entry in data:
+        if(entry.Result == 0):
+            not_required+=1
+        else:
+            required+=1
+    if(required >= not_required):
+        return "Required"
+    else:
+        return "Not Required"
+
 # permoform database operations
 def save_to_database(data, ans):
     sensor = Sensor.objects.filter(SensorID=data["SensorId"]).first()

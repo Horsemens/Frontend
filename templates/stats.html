@@ -22,6 +22,8 @@
           </nav>
     </section>
 
+    <input id="sensorID" value="{{ sensor.SensorID }}" hidden>
+
     <section class="container-fluid p-0 m-0" >
         <div class="row p-0 m-0" style="min-height: 100vh;">
             <!-- left -->
@@ -30,10 +32,16 @@
                     <div class="d-flex align-items-start" style="min-width: 100%;">
                         <!-- left -->
                         <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical" style="min-width: 100%;">
-                            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Dashboard</button>
-                            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Coolant Temperature</button>
-                            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Engine Temperature</button>
-                            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Battery</button>
+                            <button class="nav-link active" id="v-pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">Dashboard</button>
+                            <button class="nav-link" id="v-pills-coolanttemp-tab" data-bs-toggle="pill" data-bs-target="#v-pills-coolanttemp" type="button" role="tab" aria-controls="v-pills-coolanttemp" aria-selected="false">Coolant Temperature</button>
+                            <button class="nav-link" id="v-pills-airtemp-tab" data-bs-toggle="pill" data-bs-target="#v-pills-airtemp" type="button" role="tab" aria-controls="v-pills-airtemp" aria-selected="false">Engine Temperature</button>
+                            <button class="nav-link" id="v-pills-batteryvoltage-tab" data-bs-toggle="pill" data-bs-target="#v-pills-batteryvoltage" type="button" role="tab" aria-controls="v-pills-batteryvoltage" aria-selected="false">Battery Voltage</button>
+                            <button class="nav-link" id="v-pills-basefuel-tab" data-bs-toggle="pill" data-bs-target="#v-pills-basefuel" type="button" role="tab" aria-controls="v-pills-basefuel" aria-selected="false">Base Fuel</button>
+                            <button class="nav-link" id="v-pills-ignitiontiming-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ignitiontiming" type="button" role="tab" aria-controls="v-pills-ignitiontiming" aria-selected="false">Ignition Timing</button>
+                            <button class="nav-link" id="v-pills-afrdifference-tab" data-bs-toggle="pill" data-bs-target="#v-pills-afrdifference" type="button" role="tab" aria-controls="v-pills-afrdifference" aria-selected="false">AFR Difference</button>
+                            <button class="nav-link" id="v-pills-mapsource-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mapsource" type="button" role="tab" aria-controls="v-pills-mapsource" aria-selected="false">MAP Source</button>
+                            <button class="nav-link" id="v-pills-lambdasensor-tab" data-bs-toggle="pill" data-bs-target="#v-pills-lambdasensor" type="button" role="tab" aria-controls="v-pills-lambdasensor" aria-selected="false">Lambda Sensor</button>
+                            <button class="nav-link" id="v-pills-baseignition-tab" data-bs-toggle="pill" data-bs-target="#v-pills-baseignition" type="button" role="tab" aria-controls="v-pills-baseignition" aria-selected="false">Base Ignition</button>
                         </div>
 
                        
@@ -43,7 +51,7 @@
 
              <!-- main right -->
              <div class="tab-content col-10 p-0" id="v-pills-tabContent" >
-                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                     <!-- right -->
                     <div class="p-0 m-0">
                         <!-- right top -->
@@ -54,11 +62,9 @@
                         </div>
                         <diV class="container">
                             <div class="row">
-                                {% if status == "Required" %}
-
                                 <div class="col-3  p-0">
                                     <div class="card order-card">
-                                        <div class="card-block  bg-c-red" >
+                                        <div id="status" class={% if status == "Required" %}"card-block  bg-c-red"{% else %}"card-block  bg-c-green"{% endif %} >
                                             <h4 class="pb-3">Servicing Status</h4>
                                             <div class="row p-0 m-0">
                                                 <div class="col-5 p-0 m-0">
@@ -80,32 +86,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {% else %}
-                                <div class="col-3 p-0">
-                                    <div class="card  order-card">
-                                        <div class="card-block bg-c-green" >
-                                            <h4 class="pb-3">Servicing Status</h4>
-                                            <div class="row p-0 m-0">
-                                                <div class="col-6 p-0 m-0">
-                                                    <h4><i class="fa fa-wrench pt-4 ps-2" style="font-size: 28px;"></i></h4>
-                                                    <h7>
-                                                       
-                                                    </h7>
-                                                </div>
-                                                <div class="col-6 p-0 m-0" style="text-align: right;white-space: nowrap;">
-                                                    <h5>
-                                                        {{ status | title}}
-                                                    </h5>
-                                                    <h7>
-                                                        (*approx)
-                                                    </h7>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
 
                                 <div class="col-3  p-0">
                                     <div class="card  order-card">
@@ -115,12 +95,16 @@
                                                 <div class="col-6 p-0 m-0">
                                                     <h4><i class="fa fa-battery-half"></i></h4>
                                                     <h7>
-                                                        Range 192~200
+                                                        Range 12.2~14.4
                                                     </h7>
                                                 </div>
                                                 <div class="col-6 p-0 m-0" style="text-align: right;">
-                                                    <h4>
-                                                        {{ latest_stats.BatteryVoltage| default:"NA" }}
+                                                    <h4 id="bvval">
+                                                        {% if latest_stats.BatteryVoltage %}
+                                                            {% widthratio latest_stats.BatteryVoltage 1000 1 %} 
+                                                        {% else %}
+                                                            NA
+                                                        {% endif %}
                                                     </h4>
                                                     <h7>
                                                         Volts
@@ -140,12 +124,16 @@
                                                 <div class="col-6 p-0 m-0">
                                                     <h4><i class="fa fa-temperature-high"></i></h4>
                                                     <h7>
-                                                        Range 192~200
+                                                        Range 300~400
                                                     </h7>
                                                 </div>
                                                 <div class="col-6 p-0 m-0" style="text-align: right;">
-                                                    <h4>
-                                                        {{ latest_stats.AirTemp| default:"NA" }}
+                                                    <h4 id="etval">
+                                                        {% if latest_stats.AirTemp %}
+                                                           {% widthratio latest_stats.AirTemp 10 1 %} 
+                                                        {% else %}
+                                                            NA
+                                                        {% endif %}
                                                     </h4>
                                                     <h7>
                                                         Kelvin
@@ -165,12 +153,16 @@
                                                 <div class="col-6 p-0 m-0">
                                                     <h4><i class="fa fa-snowflake"></i></h4>
                                                     <h7>
-                                                        range 100~200
+                                                        range 300~400
                                                     </h7>
                                                 </div>
                                                 <div class="col-6 p-0 m-0" style="text-align: right;">
-                                                    <h4>
-                                                        {{ latest_stats.CoolantTemp| default:"NA" }}
+                                                    <h4 id="ctval">
+                                                        {% if latest_stats.CoolantTemp %}
+                                                            {% widthratio latest_stats.CoolantTemp 10 1 %} 
+                                                        {% else %}
+                                                            NA
+                                                        {% endif %}
                                                     </h4>
                                                     <h7>
                                                         Kelvin
@@ -215,17 +207,79 @@
                     </div>
                     <!-- end right -->
                 </div>
-                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    <canvas id="myChartline1" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;"></canvas>
-                    <p>coolant temp</p>
+                <div class="tab-pane fade" id="v-pills-coolanttemp" role="tabpanel" aria-labelledby="v-pills-coolanttemp-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">Coolant Temperature Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="coolanttemp" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
                 </div>
-                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                   
-                    <p>engine temp</p>
+                <div class="tab-pane fade" id="v-pills-airtemp" role="tabpanel" aria-labelledby="v-pills-airtemp-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">Air Temperature Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="airtemp" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
                 </div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                    <p>battery</p>
+                <div class="tab-pane fade" id="v-pills-batteryvoltage" role="tabpanel" aria-labelledby="v-pills-batteryvoltage-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">Battery Voltage Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="batteryvoltage" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
                 </div>
+                <div class="tab-pane fade" id="v-pills-basefuel" role="tabpanel" aria-labelledby="v-pills-basefuel-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">Base Fuel Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="basefuel" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
+                </div>
+                <div class="tab-pane fade" id="v-pills-ignitiontiming" role="tabpanel" aria-labelledby="v-pills-ignitiontiming-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">Ignition Timing Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="ignitiontiming" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
+                </div>
+                <div class="tab-pane fade" id="v-pills-afrdifference" role="tabpanel" aria-labelledby="v-pills-afrdifference-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">AFR Difference Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="afrdifference" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
+                </div>
+                <div class="tab-pane fade" id="v-pills-mapsource" role="tabpanel" aria-labelledby="v-pills-mpsource-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">MAP Source Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="mapsource" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
+                </div>
+                <div class="tab-pane fade" id="v-pills-lambdasensor" role="tabpanel" aria-labelledby="v-pills-lambdasensor-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">Lambda Sensor Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="lambdasensor" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
+                </div>
+                <div class="tab-pane fade" id="v-pills-baseignition" role="tabpanel" aria-labelledby="v-pills-baseignition-tab">
+                    <div class="container p-0 m-0">
+                        <div class="pt-2 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <p class="mb-3" style="font-size: 22px;">Base Ignition Graph</p>
+                        </div>
+                    </div>
+                    <canvas id="baseignition" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;padding: 30px;"></canvas>
+                </div>
+
 
             </div>
             
@@ -325,146 +379,290 @@
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- Graph Script -->
     <script>
 
-    // var endpoint = '';
+        
 
-    // $.ajax({
-    // method: "GET",
-    // url: endpoint,
-    // success: function(data) {
-    //     drawLineGraph(data, 'myChartline');
-    //     //drawBarGraph(data, 'myChartBar');
-    //     console.log("drawing");
-    // },
-    // error: function(error_data) {
-    //     console.log(error_data);
-    // }
-    // })
+        function loadData(){
+                
+            var sensorID = $('#sensorID').val()
+            var endpoint = `http://localhost:8000/api/getdata?id=${sensorID}`;
+            $.ajax({
+                method: "GET",
+                url: endpoint,
+                success: function(data) {
+                    if(!data){
+                        return;
+                    }
+                    var processedData = processData(data["data"]);
+                    $("#ctval").html(processedData["CoolantTemp(kelvin)"][0]);
+                    $("#etval").html(processedData["AirTemp(kelvin)"][0]);
+                    $("#bvval").html( processedData["BatteryVoltage(volts)"][0]);
+                    
+                    // dashboard graph
+                    var dashBoardDataSet = createDatasets(processedData, ["RPM","BaseFule(ml)","AFRDifference(ratio)" ,"MAPSource(inHg)"]);                
+                    drawLineGraph("myChartline", processedData["DateTime"], dashBoardDataSet, true);
 
+                    var coolentdataset = createDatasets(processedData, ["CoolantTemp(kelvin)"]);                
+                    drawLineGraph("coolanttemp", processedData["DateTime"], coolentdataset, false, yaxisname="Temperature(Kelvin)");
 
-    function drawLineGraph(id) {
-    var labels = ['a','b','c','d','e','f','a','b','c','d','e','f','a','b','c','d','e','f','g','r','w'];
-    var ctx = document.getElementById(id).getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
-        // The data for our dataset
-        data: {
-        labels: labels,
-        datasets: [
-            {
-                label: "ignition angle",
-                data: [10,20,15,12,23,4],
-                borderColor: "red",
-                fill:false,
-                tension:0,
-            },
-            {
-                label: "base fule",
-                data: [10,15,23,4,18,20],
-                borderColor: "green",    
-                fill:false,
-                tension:0,
-            },
-            {
-                label: "rpm",
-                data: [25,10,10,0,20,25,10,10,0,20,25,15],
-                borderColor: 'rgb(55, 99, 132)',
-                fill:false,
-                tenison:0,
-            }
-        ]
-        },
-        // Configuration options go here
-        options: {
-        scales: {
-            xAxes: [{
-            display: true
-            }],
-            yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-            }]
-        }
-        }
+                    var airtempdataset = createDatasets(processedData, ["AirTemp(kelvin)"]);                
+                    drawLineGraph("airtemp", processedData["DateTime"], airtempdataset,false, yaxisname="Temperature(Kelvin)");
 
-    });
-    }
-    drawLineGraph('myChartline')
-    drawLineGraph('myChartline1')
+                    var batteryvoltagedataset = createDatasets(processedData, ["BatteryVoltage(volts)"]);                
+                    drawLineGraph("batteryvoltage", processedData["DateTime"], batteryvoltagedataset, false, yaxisname="Voltage(volts)");
 
-    function drawBarGraph(id){
-        var labels = ['battery status','rpm','ignition angle','temp','voltage'];
-        var ctx = document.getElementById(id).getContext('2d');
-        var chart = new Chart(ctx,{
-            type: 'bar',
-            data:{
-            labels : labels,
-            datasets:[
-                {
-                label: "battery",
-                data: [10,15,20,18,5],
-                backgroundColor:['rgba(255, 99, 132, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 205, 86, 0.2)'
-                ],
-                borderColor: ["red",
-                              "blue",
-                              "green",
-                              'rgb(54, 162, 235)',
-                              "yellow"
-                ],
-                borderWidth:1,
+                    var basefueldataset = createDatasets(processedData, ["BaseFule(ml)"]);                
+                    drawLineGraph("basefuel", processedData["DateTime"], basefueldataset, false, yaxisname="Base Fuel(ml)");
+
+                    var ignitiontimingdataset = createDatasets(processedData, ["IgnitionTiming(degree)"]);                
+                    drawLineGraph("ignitiontiming", processedData["DateTime"], ignitiontimingdataset, false, yaxisname="Ignition Timing(degree)");
+
+                    var afrdifferencedataset = createDatasets(processedData, ["AFRDifference(ratio)"]);                
+                    drawLineGraph("afrdifference", processedData["DateTime"], afrdifferencedataset, false, yaxisname="AFRDifference(ratio)");
+
+                    var mapsourcedataset = createDatasets(processedData, ["MAPSource(inHg)"]);                
+                    drawLineGraph("mapsource", processedData["DateTime"], mapsourcedataset, false, yaxisname="MAPSource(inHg)");
+
+                    var lambdasensordataset = createDatasets(processedData, []);                
+                    drawLineGraph("lambdasensor", processedData["DateTime"], lambdasensordataset, false, yaxisname="LambdaSensor1(inHg)");
+
+                    var baseignitiondataset = createDatasets(processedData, ["BaseIgnition(degree)"]);                
+                    drawLineGraph("baseignition", processedData["DateTime"], baseignitiondataset, false, yaxisname="BaseIgnition(degree)");
+
+                    var histodataset = createBarGraphDatasets(processedData, ["BaseIgnition(degree)","IgnitionTiming(degree)","LambdaSensor1(inHg)"]);
+                    drawBarGraph('myChartbar', processedData["DateTime"].slice(0,10), histodataset);
                 },
-                // {
-                // label: "rpm",
-                // data: [15],
-                // backgroundColor:'rgba(153, 102, 255, 0.2)',
-                // borderColor: "blue",
-                // borderWidth:1,
-                // },
-                // {
-                // label: "ignition angle",
-                // data: [10],
-                // backgroundColor:'rgba(75, 192, 192, 0.2)',
-                // borderColor: "green",
-                // borderWidth:1,
-                // },
-                // {
-                // label: "temp",
-                // data: [4],
-                // backgroundColor:'rgba(255, 99, 132, 0.2)',
-                // borderColor: "voilet",
-                // borderWidth:1,
-                // },
-                // {
-                // label: "voltage",
-                // data: [25],
-                // backgroundColor:'rgba(255, 205, 86, 0.2)',
-                // borderColor: "yellow",
-                // borderWidth:1,
-                // },
-            ]
-            },
-            options:{
-                scales: {
-                    xAxes: [{
-                    display: true
-                    }],
-                    yAxes: [{
-                    ticks: {
-                         beginAtZero: true
-                        }
-                    }]
+                error: function(error_data) {
+                    console.log(error_data);
                 }
+            })
+
+            endpoint = `http://localhost:8000/api/getsensorstatus?id=${sensorID}`;
+            $.ajax({
+                method: "GET",
+                url: endpoint,
+                success: function(data) {
+                    var status = data['status']
+                    $('#status').removeAttr("class")
+                    if(status == "Required"){
+                        $('#status').addClass("card-block  bg-c-red")
+                    }else{
+                    $('#status').addClass("card-block  bg-c-green")
+                    }
+                },
+                error: function(error_data) {
+                    console.log(error_data);
+                }
+            })
+
+        }
+
+        window.addEventListener("load", (event) => {
+           loadData()
+        });
+
+        function processData(data){
+            var rpm = [];
+            var basefuel = [];
+            var ignitiontiming = [];
+            var datetime = [];
+            var afrdifference = [];
+            var mapsource = [];
+            var coolanttemp = [];
+            var batteryvoltage = [];
+            var airtemp = [];
+            var lambdasensor1 = [];
+            var baseignition = [];
+            var result = [];
+
+            
+            data.forEach(entry => {
+                rpm.push(entry["RPM"]);
+                basefuel.push(entry["BaseFuel"]);
+                ignitiontiming.push(entry['IgnitionTiming']);
+                datetime.push(entry["DateTime"]);
+                afrdifference.push(entry["AFRDifference"]);
+                mapsource.push(entry["MAPSource"]);
+                coolanttemp.push(entry["CoolantTemp"]/10);
+                batteryvoltage.push(entry["BatteryVoltage"]/1000);
+                airtemp.push(entry["AirTemp"]/10);
+                lambdasensor1.push(entry["LambdaSensor1"]);
+                baseignition.push(entry["BaseIgnition"]);
+                result.push(entry["Result"]+100);
+
+            });
+            var processedData = {
+                "RPM" : rpm,
+                "BaseFule(ml)" : basefuel,
+                "IgnitionTiming(degree)" : ignitiontiming,
+                "DateTime" : datetime,
+                "AFRDifference(ratio)" : afrdifference,
+                "MAPSource(inHg)" : mapsource,
+                "CoolantTemp(kelvin)" : coolanttemp,
+                "BatteryVoltage(volts)" : batteryvoltage,
+                "AirTemp(kelvin)" : airtemp,
+                "LambdaSensor1(inHg)" : lambdasensor1,
+                "BaseIgnition(degree)" : baseignition,
+                "Result(0/-1)": result
             }
+
+            return processedData
+
+        }
+
+        function createDatasets(data, pick){
+            datasets = [];
+            colors = ["red", "green", "blue", "indigo", "yellow", "orange"]
+            colorcounter = 0;
+            Object.entries(data).forEach( entry => {
+                const[ key ,value] = entry
+                if(pick.includes(key)){
+                    var temp = {
+                        label: key,
+                        data: value,
+                        borderColor: colors[colorcounter],
+                        fill: false,
+                        tension: 0,
+                        pointBorderWidth: 0,
+                        pointRadius: 10,
+                        pointBorderColor: 'rgb(0,0,0,0)'
+                    };
+                    colorcounter++;
+                    datasets.push(temp)
+                }
+               
+            });
+            return datasets
+        }
+
+        function createBarGraphDatasets(data, pick){
+            datasets = [];
+            colors = ["blue",  "orange", "indigo", "yellow",]
+            colorcounter = 0;
+            Object.entries(data).forEach( entry => {
+                const[ key ,value] = entry
+                if(pick.includes(key)){
+                    var temp1 =  {
+                        label: key,
+                        data: value,
+                        backgroundColor: colors[colorcounter],
+                        borderWidth:1,
+                    }
+                    colorcounter++;
+                    datasets.push(temp1);
+                }
+               
+            });
+            return datasets;
+        }
+
+        setInterval(loadData, 60 * 1000);
+
+        function drawLineGraph(id, labels, datasets, beginAtZero, yaxisname='') {
+            var ctx = document.getElementById(id).getContext('2d');
+
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+                // The data for our dataset
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                // Configuration options go here
+                options: {
+                    plugins: {
+                        legend: {
+                            labels: {
+                                // This more specific font property overrides the global property
+                                font: {
+                                    weight: "bold"
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        xAxes: [
+                            { 
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'DateTime'
+                                },
+                                ticks: {
+                                    display: false
+                                },
+                                gridLines: {
+                                    display: false,
+                                    drawBorder: false,
+                                },                     
+                            }
+                        ],
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: beginAtZero
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: yaxisname,
+                                }
+                            }
+                        ],
+                    },
+                    elements: {
+                        point:{
+                            borderWidth: 0,
+                            radius: 10,
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            borderColor: 'rgba(0,0,0,0)',
+                        }
+                    }
+                }
+
         });
     }
-    drawBarGraph('myChartbar');
+
+        function drawBarGraph(id, labels, datasets){
+            var ctx = document.getElementById(id).getContext('2d');
+            var chart = new Chart(ctx,{
+                type: 'bar',
+                data:{
+                    labels : labels,
+                    datasets: datasets
+                },
+                options:{
+                    scales: {
+                        xAxes: [
+                            {
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'DateTime'
+                                },
+                                ticks: {
+                                    display: false
+                                },
+                                gridLines: {
+                                    display: false,
+                                    drawBorder: false,
+                                },     
+                            }
+                        ],
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
+        }
+
     </script>
 
 {% endblock content %}
