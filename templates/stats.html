@@ -425,7 +425,7 @@
                     var mapsourcedataset = createDatasets(processedData, ["MAPSource(inHg)"]);                
                     drawLineGraph("mapsource", processedData["DateTime"], mapsourcedataset, false, yaxisname="MAPSource(inHg)");
 
-                    var lambdasensordataset = createDatasets(processedData, []);                
+                    var lambdasensordataset = createDatasets(processedData, ["LambdaSensor1(inHg)"]);                
                     drawLineGraph("lambdasensor", processedData["DateTime"], lambdasensordataset, false, yaxisname="LambdaSensor1(inHg)");
 
                     var baseignitiondataset = createDatasets(processedData, ["BaseIgnition(degree)"]);                
