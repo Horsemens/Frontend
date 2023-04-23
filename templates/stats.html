@@ -178,7 +178,7 @@
 
                         </diV>
                         <div class="container p-0 m-0">
-                            <div class="py-4 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
+                            <div class="py-3 ps-3" style="padding-left: 12px; font-family: sans-serif;" >
                                 <h5>Key Graphs</h5>
                             </div>
                         </div>
@@ -189,14 +189,14 @@
                                 <!-- right bottom left -->
                                 <div class="col-7 m-0">
                                     <div class="container m-0 p-0">
-                                        <canvas id="myChartline" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px; min-height: 367px;"></canvas>
+                                        <canvas id="myChartline" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;max-height: 354px;"></canvas>
                                     </div>
                                 </div>
 
                                 <!-- right bottom right -->
                                 <div class="col-5">
                                     <div class="container m-0 p-0">
-                                        <canvas id="myChartbar" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px; min-height: 367px;"></canvas>
+                                        <canvas id="myChartbar" style="box-shadow: 5px 10px 8px #888888; border-radius: 10px;min-height:354px;max-height: 354px;"></canvas>
                                     </div>
                                 </div>
 
@@ -300,6 +300,11 @@
             max-height: 100vh;
             min-height: 100vh;
             overflow-y: hidden;
+        }
+
+        .tab-pane > canvas {
+            max-height: 80vh;
+            max-width: 82vw;
         }
 
         .nav-pills .nav-link.active{
