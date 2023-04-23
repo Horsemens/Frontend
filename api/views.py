@@ -95,24 +95,36 @@ def format_data(data):
     formated_data = {}
     keys = data.keys()
     for key in keys:
-        formated_data[key] = [data[key]]
+        formated_data[key] = [float(data[key])]
     return formated_data
         
 
 # perform prediction
-def perform_model_operations(data):
+def perform_model_operations(data):    
+    X_features = [
+        'IgnitionTiming[Angle]', 
+        'MAPSource[Pressure]', 
+        'RPM[EngineSpeed]', 
+        'AFRDifference[AFR]', 
+        'BatteryVoltage[BatteryVoltage]', 
+        'AirTemp[Temperature]', 
+        'CoolantTemp[Temperature]', 
+        'LambdaSensor1[AFR]', 
+        'BaseFuel[Percentage]', 
+        'BaseIgnition[AngleIgnSprt2K]',
+    ] 
     model = load_model()
     df_me = pd.DataFrame(data)
-    df_me_f = df_me[data.keys()]
-    scaler1 = preprocessing.MinMaxScaler().fit(df_me_f)
-    df_me_f_scaled = scaler1.transform(df_me_f)
-    ans = model.predict(df_me_f_scaled)
+    df_me_f = df_me[X_features]
+    # scaler1 = preprocessing.MinMaxScaler().fit(df_me_f)
+    # df_me_f_scaled = scaler1.transform(df_me_f)
+    ans = model.predict(df_me_f)
     return ans
     
 # loads model from .pkl file
 def load_model():
     module_dir = os.path.dirname(__file__)   #get current directory
-    file_path = os.path.join(module_dir, 'model.pkl')
+    file_path = os.path.join(module_dir, 'model1.pkl')
     model_pkl = open(file_path, 'rb')     
     model = pickle.load(model_pkl)
     return model
