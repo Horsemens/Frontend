@@ -7,7 +7,7 @@ from landing_page.models import Mapping
 # Create your views here.
 def stats(request):
     if(not is_logged_in(request)):
-        redirect("/login")
+        return redirect("/login")
 
     id = request.GET.get("id")
     sensor = Sensor.objects.filter(SensorID=id).first()

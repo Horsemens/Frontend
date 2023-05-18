@@ -8,7 +8,7 @@ from django.contrib.auth import logout
 # Create your views here.
 def landing(request):
     if(not is_logged_in(request)):
-        redirect("/login")
+        return redirect("/login")
 
     current_user = request.user
     current_user_id = current_user.id
