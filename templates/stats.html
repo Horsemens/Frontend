@@ -391,8 +391,11 @@
 
         function loadData(){
                 
-            var sensorID = $('#sensorID').val()
-            var endpoint = `http://localhost:8000/api/getdata?id=${sensorID}`;
+            var sensorID = $('#sensorID').val();
+            var current_url = window.location.href;
+            var host = current_url.split("/")[2].split(":")[0];
+            var port = current_url.split("/")[2].split(":")[1];
+            var endpoint = `http://${host}:${port}/api/getdata?id=${sensorID}`;
             $.ajax({
                 method: "GET",
                 url: endpoint,
@@ -444,7 +447,7 @@
                 }
             })
 
-            endpoint = `http://localhost:8000/api/getsensorstatus?id=${sensorID}`;
+            endpoint = `http://${host}:${port}:8000/api/getsensorstatus?id=${sensorID}`;
             $.ajax({
                 method: "GET",
                 url: endpoint,
